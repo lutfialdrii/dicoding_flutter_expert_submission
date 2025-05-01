@@ -1,0 +1,2 @@
+/home/lenovo/Documents/Lutfi/Learn/dicoding_flutter_expert_submission/android/app/.cxx/Debug/644ld2o2/x86_64/CMakeFiles/edit_cache.dir
+/home/lenovo/Documents/Lutfi/Learn/dicoding_flutter_expert_submission/android/app/.cxx/Debug/644ld2o2/x86_64/CMakeFiles/rebuild_cache.dir
