@@ -1,0 +1,2 @@
+/home/lenovo/Documents/Lutfi/Learn/a199-flutter-expert-project/android/app/.cxx/Debug/l2q2q5c3/armeabi-v7a/CMakeFiles/edit_cache.dir
+/home/lenovo/Documents/Lutfi/Learn/a199-flutter-expert-project/android/app/.cxx/Debug/l2q2q5c3/armeabi-v7a/CMakeFiles/rebuild_cache.dir
