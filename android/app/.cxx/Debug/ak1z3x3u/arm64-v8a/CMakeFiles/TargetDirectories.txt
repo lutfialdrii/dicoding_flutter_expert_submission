@@ -1,0 +1,2 @@
+/home/lutfi/Documents/Lutfi/Learn/dicoding_flutter_expert_submission/android/app/.cxx/Debug/ak1z3x3u/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/lutfi/Documents/Lutfi/Learn/dicoding_flutter_expert_submission/android/app/.cxx/Debug/ak1z3x3u/arm64-v8a/CMakeFiles/rebuild_cache.dir
