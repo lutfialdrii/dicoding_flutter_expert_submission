@@ -1,4 +1,5 @@
-import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/data/models/watchlist.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
@@ -37,19 +38,19 @@ final testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
-final testWatchlistMovie = Movie.watchlist(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
+// final testWatchlistMovie = Movie.watchlist(
+//   id: 1,
+//   title: 'title',
+//   posterPath: 'posterPath',
+//   overview: 'overview',
+// );
 
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
+final testMovieTable = Watchlist(
+    id: 1,
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
+    type: Category.movie);
 
 final testMovieMap = {
   'id': 1,

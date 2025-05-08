@@ -5,9 +5,12 @@ import 'package:ditonton/domain/entities/tv_serie.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
+import 'package:ditonton/presentation/pages/tv_serie_detail_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:ditonton/presentation/provider/home_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.movie),
+              leading: Icon(Icons.tv),
               title: Text('TV Series'),
               onTap: () {
                 Navigator.pop(context);
@@ -93,7 +96,7 @@ class _HomePageState extends State<HomePage> {
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
               },
             ),
             ListTile(
@@ -111,7 +114,10 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              String argument =
+                  type == HomeType.movie ? Category.movie : Category.tvSerie;
+              Navigator.pushNamed(context, SearchPage.ROUTE_NAME,
+                  arguments: argument);
             },
             icon: Icon(Icons.search),
           )
@@ -220,8 +226,7 @@ class _HomePageState extends State<HomePage> {
         _buildSubHeading(
           title: 'Popular',
           onTap: () =>
-              // TODO : CHANGE
-              Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+              Navigator.pushNamed(context, PopularTvSeriesPage.ROUTE_NAME),
         ),
         Consumer<HomeNotifier>(builder: (context, data, child) {
           final state = data.popularTvSeriesState;
@@ -241,9 +246,7 @@ class _HomePageState extends State<HomePage> {
         _buildSubHeading(
           title: 'Top Rated',
           onTap: () =>
-              // TODO : CHANGE
-
-              Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+              Navigator.pushNamed(context, TopRatedTvSeriesPage.ROUTE_NAME),
         ),
         Consumer<HomeNotifier>(builder: (context, data, child) {
           final state = data.topRatedTvSeriesState;
@@ -349,7 +352,7 @@ class ContentList extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(
                 context,
-                MovieDetailPage.ROUTE_NAME,
+                TvSerieDetailPage.ROUTE_NAME,
                 arguments: tvSerie.id,
               );
             },

@@ -1,20 +1,21 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class TvSerie extends Equatable {
-  final bool adult;
-  final String backdropPath;
-  final List<int> genreIds;
-  final int id;
-  final List<String> originCountry;
-  final String originalLanguage;
-  final String originalName;
-  final String overview;
-  final double popularity;
-  final String posterPath;
-  final DateTime firstAirDate;
-  final String name;
-  final double voteAverage;
-  final int voteCount;
+  bool? adult;
+  String? backdropPath;
+  List<int>? genreIds;
+  int? id;
+  List<String>? originCountry;
+  String? originalLanguage;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  DateTime? firstAirDate;
+  String? name;
+  double? voteAverage;
+  int? voteCount;
 
   TvSerie({
     required this.adult,
