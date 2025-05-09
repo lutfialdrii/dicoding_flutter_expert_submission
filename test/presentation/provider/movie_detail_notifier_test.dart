@@ -167,31 +167,31 @@ void main() {
 
     test('should execute save watchlist when function called', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testMovieDetail))
+      when(mockSaveWatchlist.execute(testWatchlist))
           .thenAnswer((_) async => Right('Success'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
       await provider.addWatchlist(testMovieDetail);
       // assert
-      verify(mockSaveWatchlist.execute(testMovieDetail));
+      verify(mockSaveWatchlist.execute(testWatchlist));
     });
 
     test('should execute remove watchlist when function called', () async {
       // arrange
-      when(mockRemoveWatchlist.execute(testMovieDetail))
+      when(mockRemoveWatchlist.execute(testWatchlist))
           .thenAnswer((_) async => Right('Removed'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
       await provider.removeFromWatchlist(testMovieDetail);
       // assert
-      verify(mockRemoveWatchlist.execute(testMovieDetail));
+      verify(mockRemoveWatchlist.execute(testWatchlist));
     });
 
     test('should update watchlist status when add watchlist success', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testMovieDetail))
+      when(mockSaveWatchlist.execute(testWatchlist))
           .thenAnswer((_) async => Right('Added to Watchlist'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => true);
@@ -206,7 +206,7 @@ void main() {
 
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testMovieDetail))
+      when(mockSaveWatchlist.execute(testWatchlist))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => false);

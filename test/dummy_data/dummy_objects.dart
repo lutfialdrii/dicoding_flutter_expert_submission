@@ -1,7 +1,8 @@
-import 'package:ditonton/data/models/movie_table.dart';
-import 'package:ditonton/domain/entities/genre.dart';
+import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/data/models/watchlist.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_serie_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -22,10 +23,26 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
+final testWatchList = [testWatchlistMovie, testWatchlistTvSerie];
+
+final testWatchlistMovie = Watchlist(
+    id: 1,
+    overview: 'overview',
+    posterPath: 'posterPath',
+    title: 'title',
+    category: Category.movie);
+
+final testWatchlistTvSerie = Watchlist(
+    id: 1,
+    overview: 'overview',
+    posterPath: 'posterPath',
+    title: 'title',
+    category: Category.tvSerie);
+
 final testMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: [],
   id: 1,
   originalTitle: 'originalTitle',
   overview: 'overview',
@@ -36,20 +53,72 @@ final testMovieDetail = MovieDetail(
   voteAverage: 1,
   voteCount: 1,
 );
+final testTvSerieDetail = TvSerieDetail(
+    adult: false,
+    backdropPath: "backdropPath",
+    createdBy: [],
+    episodeRunTime: [],
+    firstAirDate: DateTime.now(),
+    genres: [],
+    homepage: "",
+    id: 0,
+    inProduction: false,
+    languages: [],
+    lastAirDate: DateTime.now(),
+    lastEpisodeToAir: TEpisodeToAir(
+        id: 0,
+        name: "name",
+        overview: "overview",
+        voteAverage: 0,
+        voteCount: 0,
+        airDate: DateTime.now(),
+        episodeNumber: 0,
+        episodeType: "",
+        productionCode: "",
+        runtime: 0,
+        seasonNumber: 0,
+        showId: 0,
+        stillPath: ""),
+    name: "",
+    nextEpisodeToAir: TEpisodeToAir(
+        id: 0,
+        name: "name",
+        overview: "overview",
+        voteAverage: 0,
+        voteCount: 0,
+        airDate: DateTime.now(),
+        episodeNumber: 0,
+        episodeType: "",
+        productionCode: "",
+        runtime: 0,
+        seasonNumber: 0,
+        showId: 0,
+        stillPath: ""),
+    networks: [],
+    numberOfEpisodes: 0,
+    numberOfSeasons: 0,
+    originCountry: [],
+    originalLanguage: "",
+    originalName: "",
+    overview: "",
+    popularity: 0,
+    posterPath: "",
+    productionCompanies: [],
+    productionCountries: [],
+    seasons: [],
+    spokenLanguages: [],
+    status: "",
+    tagline: "",
+    type: "",
+    voteAverage: 0,
+    voteCount: 0);
 
-final testWatchlistMovie = Movie.watchlist(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
+final testWatchlist = Watchlist(
+    id: 1,
+    title: 'title',
+    posterPath: 'posterPath',
+    overview: 'overview',
+    category: Category.movie);
 
 final testMovieMap = {
   'id': 1,
