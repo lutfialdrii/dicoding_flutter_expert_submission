@@ -97,7 +97,7 @@ class MyApp extends StatelessWidget {
                   builder: (_) => TvSerieDetailPage(id: id),
                   settings: settings);
             case SearchPage.ROUTE_NAME:
-              final type = settings.arguments as String;
+              final type = settings.arguments as Category;
               return CupertinoPageRoute(
                   builder: (_) => SearchPage(category: type));
             case WatchlistPage.ROUTE_NAME:

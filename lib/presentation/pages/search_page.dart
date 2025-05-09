@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class SearchPage extends StatelessWidget {
   static const ROUTE_NAME = '/search';
 
-  final String category;
+  final Category category;
 
   const SearchPage({Key? key, required this.category}) : super(key: key);
 

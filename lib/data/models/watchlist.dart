@@ -8,14 +8,14 @@ class Watchlist extends Equatable {
   final String? title;
   final String? posterPath;
   final String? overview;
-  final String? type;
+  final Category? category;
 
   Watchlist({
     required this.id,
     required this.title,
     required this.posterPath,
     required this.overview,
-    required this.type,
+    required this.category,
   });
 
   factory Watchlist.fromMap(Map<String, dynamic> map) => Watchlist(
@@ -23,7 +23,9 @@ class Watchlist extends Equatable {
         title: map['title'],
         posterPath: map['posterPath'],
         overview: map['overview'],
-        type: map['type'],
+        category: map['category'] == Category.movie.toString()
+            ? Category.movie
+            : Category.tvSerie,
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,7 +33,7 @@ class Watchlist extends Equatable {
         'title': title,
         'posterPath': posterPath,
         'overview': overview,
-        'type': type,
+        'category': category.toString(),
       };
 
   factory Watchlist.fromMovieDetailEntity(MovieDetail movie) => Watchlist(
@@ -39,7 +41,7 @@ class Watchlist extends Equatable {
         title: movie.title,
         posterPath: movie.posterPath,
         overview: movie.overview,
-        type: Category.movie,
+        category: Category.movie,
       );
 
   factory Watchlist.fromTvSerieDetailEntity(TvSerieDetail tvSerie) => Watchlist(
@@ -47,7 +49,7 @@ class Watchlist extends Equatable {
         title: tvSerie.name,
         posterPath: tvSerie.posterPath,
         overview: tvSerie.overview,
-        type: Category.tvSerie,
+        category: Category.tvSerie,
       );
 
   @override

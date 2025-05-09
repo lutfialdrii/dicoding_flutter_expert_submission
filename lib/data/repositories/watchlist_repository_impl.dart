@@ -39,7 +39,11 @@ class WatchlistRepositoryImpl implements WatchlistRepository {
 
   @override
   Future<Either<Failure, List<Watchlist>>> getWatchlist() async {
-    final result = await localDataSource.getWatchlist();
-    return Right(result);
+    try {
+      final result = await localDataSource.getWatchlist();
+      return Right(result);
+    } on DatabaseException catch (e) {
+      return Left(DatabaseFailure(e.message));
+    }
   }
 }

@@ -21,10 +21,8 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-enum HomeType { movie, tvSerie }
-
 class _HomePageState extends State<HomePage> {
-  HomeType type = HomeType.movie;
+  Category category = Category.movie;
 
   @override
   void initState() {
@@ -70,11 +68,11 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context);
 
-                if (type != HomeType.movie) {
+                if (category != Category.movie) {
                   Provider.of<HomeNotifier>(context, listen: false).reset();
                   Future.microtask(() => fetchMovies());
                 }
-                type = HomeType.movie;
+                category = Category.movie;
                 setState(() {});
               },
             ),
@@ -84,11 +82,11 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.pop(context);
 
-                if (type != HomeType.tvSerie) {
+                if (category != Category.tvSerie) {
                   Provider.of<HomeNotifier>(context, listen: false).reset();
                   Future.microtask(() => fetchTVSeries());
                 }
-                type = HomeType.tvSerie;
+                category = Category.tvSerie;
                 setState(() {});
               },
             ),
@@ -110,14 +108,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text(type == HomeType.movie ? "Movies" : "TV Series"),
+        title: Text(category == Category.movie ? "Movies" : "TV Series"),
         actions: [
           IconButton(
             onPressed: () {
-              String argument =
-                  type == HomeType.movie ? Category.movie : Category.tvSerie;
               Navigator.pushNamed(context, SearchPage.ROUTE_NAME,
-                  arguments: argument);
+                  arguments: category);
             },
             icon: Icon(Icons.search),
           )
@@ -126,7 +122,7 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
-            child: type == HomeType.movie
+            child: category == Category.movie
                 ? _buildMoviesContent(context)
                 : _buildTvSeriesContent(context)),
       ),
@@ -149,7 +145,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.movie,
+              type: Category.movie,
               movies: data.nowPlayingMovies,
             );
           } else {
@@ -169,7 +165,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.movie,
+              type: Category.movie,
               movies: data.popularMovies,
             );
           } else {
@@ -189,7 +185,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.movie,
+              type: Category.movie,
               movies: data.topRatedMovies,
             );
           } else {
@@ -216,7 +212,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.tvSerie,
+              type: Category.tvSerie,
               tvSeries: data.onAirTvSeries,
             );
           } else {
@@ -236,7 +232,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.tvSerie,
+              type: Category.tvSerie,
               tvSeries: data.popularTvSeries,
             );
           } else {
@@ -256,7 +252,7 @@ class _HomePageState extends State<HomePage> {
             );
           } else if (state == RequestState.Loaded) {
             return ContentList(
-              type: HomeType.tvSerie,
+              type: Category.tvSerie,
               tvSeries: data.topRatedTvSeries,
             );
           } else {
@@ -290,7 +286,7 @@ class _HomePageState extends State<HomePage> {
 }
 
 class ContentList extends StatelessWidget {
-  final HomeType type;
+  final Category type;
   final List<Movie>? movies;
   final List<TvSerie>? tvSeries;
 
@@ -305,7 +301,7 @@ class ContentList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 200,
-      child: type == HomeType.movie ? _buildMoviesList() : _buildTvSeriesList(),
+      child: type == Category.movie ? _buildMoviesList() : _buildTvSeriesList(),
     );
   }
 

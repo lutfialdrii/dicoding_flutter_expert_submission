@@ -16,7 +16,7 @@ class PosterCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: InkWell(
         onTap: () {
-          data.type == Category.movie
+          data.category == Category.movie
               ? Navigator.pushNamed(
                   context,
                   MovieDetailPage.ROUTE_NAME,
@@ -57,7 +57,7 @@ class PosterCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            data.type == Category.movie
+                            data.category == Category.movie
                                 ? Icons.movie
                                 : Icons.tv,
                             size: 10,
@@ -66,7 +66,9 @@ class PosterCard extends StatelessWidget {
                             width: 4,
                           ),
                           Text(
-                            data.type == Category.movie ? "Movie" : "Series",
+                            data.category == Category.movie
+                                ? "Movie"
+                                : "Series",
                             style: kBodyText.copyWith(fontSize: 10),
                           )
                         ],

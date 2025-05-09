@@ -36,7 +36,7 @@ class DatabaseHelper {
         title TEXT,
         overview TEXT,
         posterPath TEXT,
-        type TEXT
+        category TEXT
       );
     ''');
   }

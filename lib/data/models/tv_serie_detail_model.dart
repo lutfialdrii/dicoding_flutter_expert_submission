@@ -1,6 +1,7 @@
 import 'package:ditonton/domain/entities/tv_serie_detail.dart' as entity;
+import 'package:equatable/equatable.dart';
 
-class TvSerieDetailModel {
+class TvSerieDetailModel extends Equatable {
   final bool? adult;
   final String? backdropPath;
   final List<CreatedBy>? createdBy;
@@ -209,7 +210,7 @@ class TvSerieDetailModel {
       inProduction: inProduction ?? false,
       languages: languages ?? [],
       lastAirDate: lastAirDate ?? DateTime.now(),
-      lastEpisodeToAir: lastEpisodeToAir!.toEntity(),
+      lastEpisodeToAir: lastEpisodeToAir?.toEntity(),
       name: name ?? '',
       nextEpisodeToAir: nextEpisodeToAir?.toEntity(),
       networks: networks?.map((e) => e.toEntity()).toList() ?? [],
@@ -234,9 +235,45 @@ class TvSerieDetailModel {
       voteCount: voteCount ?? 0,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        adult,
+        backdropPath,
+        createdBy,
+        episodeRunTime,
+        firstAirDate,
+        genres,
+        homepage,
+        id,
+        inProduction,
+        languages,
+        lastAirDate,
+        lastEpisodeToAir,
+        name,
+        nextEpisodeToAir,
+        networks,
+        numberOfEpisodes,
+        numberOfSeasons,
+        originCountry,
+        originalLanguage,
+        originalName,
+        overview,
+        popularity,
+        posterPath,
+        productionCompanies,
+        productionCountries,
+        seasons,
+        spokenLanguages,
+        status,
+        tagline,
+        type,
+        voteAverage,
+        voteCount,
+      ];
 }
 
-class CreatedBy {
+class CreatedBy extends Equatable {
   final int? id;
   final String? creditId;
   final String? name;
@@ -281,9 +318,14 @@ class CreatedBy {
       profilePath: profilePath ?? '',
     );
   }
+
+  @override
+  @override
+  List<Object?> get props =>
+      [id, creditId, name, originalName, gender, profilePath];
 }
 
-class Genre {
+class Genre extends Equatable {
   final int? id;
   final String? name;
 
@@ -308,9 +350,12 @@ class Genre {
       name: name ?? '',
     );
   }
+
+  @override
+  List<Object?> get props => [id, name];
 }
 
-class TEpisodeToAir {
+class TEpisodeToAir extends Equatable {
   final int? id;
   final String? name;
   final String? overview;
@@ -392,9 +437,26 @@ class TEpisodeToAir {
       stillPath: stillPath,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        overview,
+        voteAverage,
+        voteCount,
+        airDate,
+        episodeNumber,
+        episodeType,
+        productionCode,
+        runtime,
+        seasonNumber,
+        showId,
+        stillPath,
+      ];
 }
 
-class Network {
+class Network extends Equatable {
   final int? id;
   final String? logoPath;
   final String? name;
@@ -428,9 +490,12 @@ class Network {
         "name": name,
         "origin_country": originCountry,
       };
+
+  @override
+  List<Object?> get props => [id, logoPath, name, originCountry];
 }
 
-class ProductionCountry {
+class ProductionCountry extends Equatable {
   final String? iso31661;
   final String? name;
 
@@ -453,9 +518,12 @@ class ProductionCountry {
         "iso_3166_1": iso31661,
         "name": name,
       };
+
+  @override
+  List<Object?> get props => [iso31661, name];
 }
 
-class Season {
+class Season extends Equatable {
   final DateTime? airDate;
   final int? episodeCount;
   final int? id;
@@ -512,9 +580,21 @@ class Season {
       voteAverage: double.tryParse(voteAverage.toString()) ?? 0.0,
     );
   }
+
+  @override
+  List<Object?> get props => [
+        airDate,
+        episodeCount,
+        id,
+        name,
+        overview,
+        posterPath,
+        seasonNumber,
+        voteAverage
+      ];
 }
 
-class SpokenLanguage {
+class SpokenLanguage extends Equatable {
   final String? englishName;
   final String? iso6391;
   final String? name;
@@ -544,4 +624,7 @@ class SpokenLanguage {
       name: name ?? '',
     );
   }
+
+  @override
+  List<Object?> get props => [englishName, iso6391, name];
 }

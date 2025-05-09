@@ -18,7 +18,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
     super.initState();
     Future.microtask(() =>
         Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
+            .fetchWatchlist());
   }
 
   @override
@@ -28,8 +28,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   }
 
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
   }
 
   @override
