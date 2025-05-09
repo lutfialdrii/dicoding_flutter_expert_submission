@@ -1,5 +1,5 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/domain/usecases/get_watchlist.dart';
 import 'package:flutter/foundation.dart';
 

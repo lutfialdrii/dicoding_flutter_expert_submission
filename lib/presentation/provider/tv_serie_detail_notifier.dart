@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:ditonton/data/models/watchlist.dart';
 import 'package:ditonton/domain/entities/tv_serie.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/domain/usecases/get_watchlist_status.dart';
 import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
@@ -99,7 +99,8 @@ class TvSerieDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromWatchlist(TvSerieDetail data) async {
-    final result = await removeWatchlist.execute(Watchlist.fromTvSerieDetailEntity(data));
+    final result =
+        await removeWatchlist.execute(Watchlist.fromTvSerieDetailEntity(data));
 
     await result.fold(
       (failure) async {

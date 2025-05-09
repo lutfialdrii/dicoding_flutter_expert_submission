@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/presentation/pages/tv_serie_detail_page.dart';
 import 'package:flutter/material.dart';

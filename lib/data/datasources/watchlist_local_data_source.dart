@@ -1,12 +1,12 @@
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/data/models/watchlist_model.dart';
 
 abstract class WatchlistLocalDataSource {
-  Future<String> insertWatchlist(Watchlist movie);
-  Future<String> removeWatchlist(Watchlist movie);
-  Future<Watchlist?> getMovieById(int id);
-  Future<List<Watchlist>> getWatchlist();
+  Future<String> insertWatchlist(WatchlistModel movie);
+  Future<String> removeWatchlist(WatchlistModel movie);
+  Future<WatchlistModel?> getMovieById(int id);
+  Future<List<WatchlistModel>> getWatchlist();
 }
 
 class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
@@ -15,7 +15,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   WatchlistLocalDataSourceImpl({required this.databaseHelper});
 
   @override
-  Future<String> insertWatchlist(Watchlist movie) async {
+  Future<String> insertWatchlist(WatchlistModel movie) async {
     try {
       await databaseHelper.insertWatchlist(movie);
       return 'Added to Watchlist';
@@ -25,7 +25,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   }
 
   @override
-  Future<String> removeWatchlist(Watchlist movie) async {
+  Future<String> removeWatchlist(WatchlistModel movie) async {
     try {
       await databaseHelper.removeWatchlist(movie);
       return 'Removed from Watchlist';
@@ -35,18 +35,18 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   }
 
   @override
-  Future<Watchlist?> getMovieById(int id) async {
+  Future<WatchlistModel?> getMovieById(int id) async {
     final result = await databaseHelper.getMovieById(id);
     if (result != null) {
-      return Watchlist.fromMap(result);
+      return WatchlistModel.fromMap(result);
     } else {
       return null;
     }
   }
 
   @override
-  Future<List<Watchlist>> getWatchlist() async {
+  Future<List<WatchlistModel>> getWatchlist() async {
     final result = await databaseHelper.getWatchlistMovies();
-    return result.map((data) => Watchlist.fromMap(data)).toList();
+    return result.map((data) => WatchlistModel.fromMap(data)).toList();
   }
 }

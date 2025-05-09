@@ -1,38 +1,40 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:equatable/equatable.dart';
 
 class TvSerieDetail extends Equatable {
-  final bool? adult;
-  final String? backdropPath;
-  final List<CreatedBy>? createdBy;
-  final List<int>? episodeRunTime;
-  final DateTime? firstAirDate;
-  final List<Genre>? genres;
-  final String? homepage;
-  final int? id;
-  final bool? inProduction;
-  final List<String>? languages;
-  final DateTime? lastAirDate;
-  final TEpisodeToAir? lastEpisodeToAir;
-  final String? name;
-  final TEpisodeToAir? nextEpisodeToAir;
-  final List<Network>? networks;
-  final int? numberOfEpisodes;
-  final int? numberOfSeasons;
-  final List<String>? originCountry;
-  final String? originalLanguage;
-  final String? originalName;
-  final String? overview;
-  final double? popularity;
-  final String? posterPath;
-  final List<Network>? productionCompanies;
-  final List<ProductionCountry>? productionCountries;
-  final List<Season>? seasons;
-  final List<SpokenLanguage>? spokenLanguages;
-  final String? status;
-  final String? tagline;
-  final String? type;
-  final double? voteAverage;
-  final int? voteCount;
+  bool? adult;
+  String? backdropPath;
+  List<CreatedBy>? createdBy;
+  List<int>? episodeRunTime;
+  DateTime? firstAirDate;
+  List<Genre>? genres;
+  String? homepage;
+  int? id;
+  bool? inProduction;
+  List<String>? languages;
+  DateTime? lastAirDate;
+  TEpisodeToAir? lastEpisodeToAir;
+  String? name;
+  TEpisodeToAir? nextEpisodeToAir;
+  List<Network>? networks;
+  int? numberOfEpisodes;
+  int? numberOfSeasons;
+  List<String>? originCountry;
+  String? originalLanguage;
+  String? originalName;
+  String? overview;
+  double? popularity;
+  String? posterPath;
+  List<Network>? productionCompanies;
+  List<ProductionCountry>? productionCountries;
+  List<Season>? seasons;
+  List<SpokenLanguage>? spokenLanguages;
+  String? status;
+  String? tagline;
+  String? type;
+  double? voteAverage;
+  int? voteCount;
 
   TvSerieDetail({
     required this.adult,
@@ -107,12 +109,12 @@ class TvSerieDetail extends Equatable {
 }
 
 class CreatedBy extends Equatable {
-  final int id;
-  final String creditId;
-  final String name;
-  final String originalName;
-  final int gender;
-  final String profilePath;
+  int? id;
+  String? creditId;
+  String? name;
+  String? originalName;
+  int? gender;
+  String? profilePath;
 
   CreatedBy({
     required this.id,
@@ -129,8 +131,8 @@ class CreatedBy extends Equatable {
 }
 
 class Genre extends Equatable {
-  final int id;
-  final String name;
+  int id;
+  String name;
 
   Genre({
     required this.id,
@@ -142,19 +144,19 @@ class Genre extends Equatable {
 }
 
 class TEpisodeToAir extends Equatable {
-  final int id;
-  final String name;
-  final String overview;
-  final double voteAverage;
-  final int voteCount;
-  final DateTime airDate;
-  final int episodeNumber;
-  final String episodeType;
-  final String productionCode;
-  final int runtime;
-  final int seasonNumber;
-  final int showId;
-  final dynamic stillPath;
+  int? id;
+  String? name;
+  String? overview;
+  double? voteAverage;
+  int? voteCount;
+  DateTime? airDate;
+  int? episodeNumber;
+  String? episodeType;
+  String? productionCode;
+  int? runtime;
+  int? seasonNumber;
+  int? showId;
+  String? stillPath;
 
   TEpisodeToAir({
     required this.id,
@@ -191,10 +193,10 @@ class TEpisodeToAir extends Equatable {
 }
 
 class Network extends Equatable {
-  final int id;
-  final String logoPath;
-  final String name;
-  final String originCountry;
+  int? id;
+  String? logoPath;
+  String? name;
+  String? originCountry;
 
   Network({
     required this.id,
@@ -208,8 +210,8 @@ class Network extends Equatable {
 }
 
 class ProductionCountry extends Equatable {
-  final String iso31661;
-  final String name;
+  String iso31661;
+  String name;
 
   ProductionCountry({
     required this.iso31661,
@@ -221,14 +223,14 @@ class ProductionCountry extends Equatable {
 }
 
 class Season extends Equatable {
-  final DateTime airDate;
-  final int episodeCount;
-  final int id;
-  final String name;
-  final String overview;
-  final dynamic posterPath;
-  final int seasonNumber;
-  final double voteAverage;
+  DateTime? airDate;
+  int? episodeCount;
+  int? id;
+  String? name;
+  String? overview;
+  String posterPath;
+  int? seasonNumber;
+  double? voteAverage;
 
   Season({
     required this.airDate,
@@ -255,9 +257,9 @@ class Season extends Equatable {
 }
 
 class SpokenLanguage extends Equatable {
-  final String englishName;
-  final String iso6391;
-  final String name;
+  String? englishName;
+  String? iso6391;
+  String? name;
 
   SpokenLanguage({
     required this.englishName,
