@@ -167,31 +167,31 @@ void main() {
 
     test('should execute save watchlist when function called', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist))
+      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Success'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
       await provider.addWatchlist(testMovieDetail);
       // assert
-      verify(mockSaveWatchlist.execute(testWatchlist));
+      verify(mockSaveWatchlist.execute(testWatchlist.toEntity()));
     });
 
     test('should execute remove watchlist when function called', () async {
       // arrange
-      when(mockRemoveWatchlist.execute(testWatchlist))
+      when(mockRemoveWatchlist.execute(testWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Removed'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
       await provider.removeFromWatchlist(testMovieDetail);
       // assert
-      verify(mockRemoveWatchlist.execute(testWatchlist));
+      verify(mockRemoveWatchlist.execute(testWatchlist.toEntity()));
     });
 
     test('should update watchlist status when add watchlist success', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist))
+      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Added to Watchlist'));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => true);
@@ -206,7 +206,7 @@ void main() {
 
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist))
+      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
       when(mockGetWatchlistStatus.execute(testMovieDetail.id))
           .thenAnswer((_) async => false);

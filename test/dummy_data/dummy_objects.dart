@@ -1,8 +1,9 @@
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/data/models/watchlist_model.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
 import 'package:ditonton/domain/entities/tv_serie_detail.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -113,7 +114,7 @@ final testTvSerieDetail = TvSerieDetail(
     voteAverage: 0,
     voteCount: 0);
 
-final testWatchlist = Watchlist(
+final testWatchlist = WatchlistModel(
     id: 1,
     title: 'title',
     posterPath: 'posterPath',
@@ -125,4 +126,5 @@ final testMovieMap = {
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'category': Category.movie.toString(),
 };

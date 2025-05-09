@@ -67,7 +67,7 @@ void main() {
   group('Get Movie Detail By Id', () {
     final tId = 1;
 
-    test('should return Movie Detail Table when data is found', () async {
+    test('should return Movie Detail when data is found', () async {
       // arrange
       when(mockDatabaseHelper.getMovieById(tId))
           .thenAnswer((_) async => testMovieMap);

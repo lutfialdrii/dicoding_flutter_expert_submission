@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/common/failure.dart';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/data/models/watchlist_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -21,7 +21,7 @@ void main() {
     );
   });
 
-  final tWatchlist = Watchlist(
+  final tWatchlist = WatchlistModel(
     id: 1,
     title: 'Spider-Man',
     overview: 'Overview',
@@ -36,7 +36,7 @@ void main() {
           .thenAnswer((_) async => 'Added to Watchlist');
 
       // act
-      final result = await _repository.saveWatchlist(tWatchlist);
+      final result = await _repository.saveWatchlist(tWatchlist.toEntity());
 
       // assert
       expect(result, Right('Added to Watchlist'));
@@ -48,7 +48,7 @@ void main() {
           .thenThrow(DatabaseException('Failed to add watchlist'));
 
       // act
-      final result = await _repository.saveWatchlist(tWatchlist);
+      final result = await _repository.saveWatchlist(tWatchlist.toEntity());
 
       // assert
       expect(result, Left(DatabaseFailure('Failed to add watchlist')));
@@ -62,7 +62,7 @@ void main() {
           .thenAnswer((_) async => 'Removed from Watchlist');
 
       // act
-      final result = await _repository.removeWatchlist(tWatchlist);
+      final result = await _repository.removeWatchlist(tWatchlist.toEntity());
 
       // assert
       expect(result, Right('Removed from Watchlist'));
@@ -74,7 +74,7 @@ void main() {
           .thenThrow(DatabaseException('Failed to remove watchlist'));
 
       // act
-      final result = await _repository.removeWatchlist(tWatchlist);
+      final result = await _repository.removeWatchlist(tWatchlist.toEntity());
 
       // assert
       expect(result, Left(DatabaseFailure('Failed to remove watchlist')));
@@ -118,7 +118,7 @@ void main() {
 
       // assert
       final resultList = result.getOrElse(() => []);
-      expect(resultList, [tWatchlist]);
+      expect(resultList, [tWatchlist.toEntity()]);
     });
   });
 }

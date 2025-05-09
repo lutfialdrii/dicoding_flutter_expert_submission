@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:ditonton/data/models/watchlist.dart';
+import 'package:ditonton/data/models/watchlist_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -41,12 +41,12 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insertWatchlist(Watchlist data) async {
+  Future<int> insertWatchlist(WatchlistModel data) async {
     final db = await database;
     return await db!.insert(_tblWatchlist, data.toJson());
   }
 
-  Future<int> removeWatchlist(Watchlist data) async {
+  Future<int> removeWatchlist(WatchlistModel data) async {
     final db = await database;
     return await db!.delete(
       _tblWatchlist,
