@@ -24,9 +24,14 @@ import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tvseries.dart';
+import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/popular_tv_series/popular_tv_series_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/home_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
 import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
 import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
@@ -39,21 +44,42 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void init() {
-  // bloc
+  // blocs
   locator.registerFactory(
     () => SearchBloc(locator(), locator()),
   );
-  // provider
   locator.registerFactory(
-    () => HomeNotifier(
-      getNowPlayingMovies: locator(),
-      getPopularMovies: locator(),
-      getTopRatedMovies: locator(),
-      getOnairTvSeries: locator(),
-      getPopularTvSeries: locator(),
-      getTopRatedTvSeries: locator(),
+    () => NowPlayingMoviesBloc(
+      locator(),
     ),
   );
+  locator.registerFactory(
+    () => PopularMoviesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopRatedMoviesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => OnairTvSeriesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => PopularTvSeriesBloc(
+      locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => TopRatedTvSeriesBloc(
+      locator(),
+    ),
+  );
+  // provider
+
   locator.registerFactory(
     () => MovieDetailNotifier(
       getMovieDetail: locator(),

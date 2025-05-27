@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/data/models/watchlist_model.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_serie.dart';
 import 'package:ditonton/domain/entities/tv_serie_detail.dart';
 import 'package:ditonton/domain/entities/watchlist.dart';
 
@@ -128,3 +129,56 @@ final testMovieMap = {
   'title': 'title',
   'category': Category.movie.toString(),
 };
+
+final tTvSerie = TvSerie(
+  adult: false,
+  backdropPath: 'backdropPath',
+  genreIds: [1, 2, 3],
+  id: 1,
+  overview: 'overview',
+  popularity: 1,
+  posterPath: 'posterPath',
+  voteAverage: 1,
+  voteCount: 1,
+  originCountry: [],
+  originalLanguage: '',
+  originalName: '',
+  firstAirDate: null,
+  name: '',
+);
+
+final tTvSerieList = <TvSerie>[tTvSerie];
+
+final tMovieModel = Movie(
+  adult: false,
+  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+  genreIds: [14, 28],
+  id: 557,
+  originalTitle: 'Spider-Man',
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  popularity: 60.441,
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  releaseDate: '2002-05-01',
+  title: 'Spider-Man',
+  video: false,
+  voteAverage: 7.2,
+  voteCount: 13507,
+);
+final tMovieList = <Movie>[tMovieModel];
+final tTvSerieModel = TvSerie(
+  adult: false,
+  backdropPath: '/anu.jpg',
+  genreIds: [0],
+  id: 0,
+  name: 'Anu',
+  overview: '',
+  popularity: 0,
+  posterPath: '',
+  firstAirDate: DateTime.now(),
+  originalName: 'Anu',
+  voteAverage: 0,
+  voteCount: 0,
+  originCountry: [],
+  originalLanguage: '',
+);

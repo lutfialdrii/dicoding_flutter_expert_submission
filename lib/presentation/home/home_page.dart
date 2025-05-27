@@ -3,6 +3,12 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv_serie.dart';
 import 'package:ditonton/presentation/about/about_page.dart';
+import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/popular_tv_series/popular_tv_series_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movies_bloc.dart';
+import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/movie_detail/movie_detail_page.dart';
 import 'package:ditonton/presentation/popular_movies/popular_movies_page.dart';
 import 'package:ditonton/presentation/popular_tv_series/popular_tv_series_page.dart';
@@ -11,10 +17,8 @@ import 'package:ditonton/presentation/top_rated_movies/top_rated_movies_page.dar
 import 'package:ditonton/presentation/top_rated_tv_series/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/tv_serie_detail/tv_serie_detail_page.dart';
 import 'package:ditonton/presentation/watchlist/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/home_notifier.dart';
-import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -32,17 +36,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future fetchMovies() async {
-    return Provider.of<HomeNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies();
+    context.read<NowPlayingMoviesBloc>().add(FetchNowPlayingMovies());
+    context.read<PopularMoviesBloc>().add(FetchPopularMovies());
+    context.read<TopRatedMoviesBloc>().add(FetchTopRatedMovies());
   }
 
   Future fetchTVSeries() async {
-    return Provider.of<HomeNotifier>(context, listen: false)
-      ..fetchOnAirTvSeries()
-      ..fetchPopularTvSeries()
-      ..fetchTopRatedTvSeries();
+    context.read<OnairTvSeriesBloc>().add(FetchOnairTvSeries());
+    context.read<PopularTvSeriesBloc>().add(FetchPopularTvSeries());
+    context.read<TopRatedTvSeriesBloc>().add(FetchTopRatedTvSeries());
   }
 
   @override
@@ -69,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pop(context);
 
                 if (category != Category.movie) {
-                  Provider.of<HomeNotifier>(context, listen: false).reset();
                   Future.microtask(() => fetchMovies());
                 }
                 category = Category.movie;
@@ -83,7 +84,6 @@ class _HomePageState extends State<HomePage> {
                 Navigator.pop(context);
 
                 if (category != Category.tvSerie) {
-                  Provider.of<HomeNotifier>(context, listen: false).reset();
                   Future.microtask(() => fetchTVSeries());
                 }
                 category = Category.tvSerie;
@@ -137,61 +137,91 @@ class _HomePageState extends State<HomePage> {
           'Now Playing',
           style: kHeading6,
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.nowPlayingMoviesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.movie,
-              movies: data.nowPlayingMovies,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<NowPlayingMoviesBloc, NowPlayingMoviesState>(
+          builder: (context, state) {
+            if (state is NowPlayingMoviesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is NowPlayingMoviesLoaded) {
+              return ContentList(
+                type: Category.movie,
+                movies: state.data,
+              );
+            } else if (state is NowPlayingMoviesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is NowPlayingMoviesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
         _buildSubHeading(
           title: 'Popular',
           onTap: () =>
               Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.popularMoviesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.movie,
-              movies: data.popularMovies,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<PopularMoviesBloc, PopularMoviesState>(
+          builder: (context, state) {
+            if (state is PopularMoviesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is PopularMoviesLoaded) {
+              return ContentList(
+                type: Category.movie,
+                movies: state.data,
+              );
+            } else if (state is PopularMoviesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is PopularMoviesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
         _buildSubHeading(
           title: 'Top Rated',
           onTap: () =>
               Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.topRatedMoviesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.movie,
-              movies: data.topRatedMovies,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<TopRatedMoviesBloc, TopRatedMoviesState>(
+          builder: (context, state) {
+            if (state is TopRatedMoviesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is TopRatedMoviesLoaded) {
+              return ContentList(
+                type: Category.movie,
+                movies: state.data,
+              );
+            } else if (state is TopRatedMoviesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is TopRatedMoviesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
       ],
     );
   }
@@ -204,61 +234,91 @@ class _HomePageState extends State<HomePage> {
           'On Air',
           style: kHeading6,
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.onAirTvSeriesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.tvSerie,
-              tvSeries: data.onAirTvSeries,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<OnairTvSeriesBloc, OnairTvSeriesState>(
+          builder: (context, state) {
+            if (state is OnairTvSeriesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is OnAirTvSeriesLoaded) {
+              return ContentList(
+                type: Category.tvSerie,
+                tvSeries: state.data,
+              );
+            } else if (state is OnairTvSeriesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is OnairTvSeriesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
         _buildSubHeading(
           title: 'Popular',
           onTap: () =>
               Navigator.pushNamed(context, PopularTvSeriesPage.ROUTE_NAME),
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.popularTvSeriesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.tvSerie,
-              tvSeries: data.popularTvSeries,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<PopularTvSeriesBloc, PopularTvSeriesState>(
+          builder: (context, state) {
+            if (state is PopularTvSeriesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is PopularTvSeriesLoaded) {
+              return ContentList(
+                type: Category.tvSerie,
+                tvSeries: state.data,
+              );
+            } else if (state is PopularTvSeriesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is PopularTvSeriesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
         _buildSubHeading(
           title: 'Top Rated',
           onTap: () =>
               Navigator.pushNamed(context, TopRatedTvSeriesPage.ROUTE_NAME),
         ),
-        Consumer<HomeNotifier>(builder: (context, data, child) {
-          final state = data.topRatedTvSeriesState;
-          if (state == RequestState.Loading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state == RequestState.Loaded) {
-            return ContentList(
-              type: Category.tvSerie,
-              tvSeries: data.topRatedTvSeries,
-            );
-          } else {
-            return Text('Failed');
-          }
-        }),
+        BlocConsumer<TopRatedTvSeriesBloc, TopRatedTvSeriesState>(
+          builder: (context, state) {
+            if (state is TopRatedTvSeriesLoading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state is TopRatedTvSeriesLoaded) {
+              return ContentList(
+                type: Category.tvSerie,
+                tvSeries: state.data,
+              );
+            } else if (state is TopRatedTvSeriesError) {
+              return Center(
+                child: Text("Terjadi kesalahan saat mengambil data :("),
+              );
+            } else {
+              return Container();
+            }
+          },
+          listener: (context, state) {
+            if (state is TopRatedTvSeriesError) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(
+                      "Terjadi kesalahan saat mengambil data :( ${state.message}")));
+            }
+          },
+        ),
       ],
     );
   }
