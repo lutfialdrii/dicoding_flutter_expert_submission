@@ -31,7 +31,7 @@ void main() {
       'Watchlist button should display add icon when movie not added to watchlist',
       (WidgetTester tester) async {
     when(mockMovieNotifier.movieState).thenReturn(RequestState.Loaded);
-    when(mockMovieNotifier.movie).thenReturn(testMovieDetail);
+    when(mockMovieNotifier.movie).thenReturn(tMovieDetail);
     when(mockMovieNotifier.recommendationState).thenReturn(RequestState.Loaded);
     when(mockMovieNotifier.movieRecommendations).thenReturn(<Movie>[]);
     when(mockMovieNotifier.isAddedToWatchlist).thenReturn(false);
@@ -47,7 +47,7 @@ void main() {
       'Watchlist button should dispay check icon when movie is added to wathclist',
       (WidgetTester tester) async {
     when(mockMovieNotifier.movieState).thenReturn(RequestState.Loaded);
-    when(mockMovieNotifier.movie).thenReturn(testMovieDetail);
+    when(mockMovieNotifier.movie).thenReturn(tMovieDetail);
     when(mockMovieNotifier.recommendationState).thenReturn(RequestState.Loaded);
     when(mockMovieNotifier.movieRecommendations).thenReturn(<Movie>[]);
     when(mockMovieNotifier.isAddedToWatchlist).thenReturn(true);

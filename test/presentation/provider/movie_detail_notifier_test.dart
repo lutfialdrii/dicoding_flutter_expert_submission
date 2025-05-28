@@ -70,7 +70,7 @@ void main() {
 
   void _arrangeUsecase() {
     when(mockGetMovieDetail.execute(tId))
-        .thenAnswer((_) async => Right(testMovieDetail));
+        .thenAnswer((_) async => Right(tMovieDetail));
     when(mockGetMovieRecommendations.execute(tId))
         .thenAnswer((_) async => Right(tMovies));
   }
@@ -103,7 +103,7 @@ void main() {
       await provider.fetchMovieDetail(tId);
       // assert
       expect(provider.movieState, RequestState.Loaded);
-      expect(provider.movie, testMovieDetail);
+      expect(provider.movie, tMovieDetail);
       expect(listenerCallCount, 3);
     });
 
@@ -144,7 +144,7 @@ void main() {
     test('should update error message when request in successful', () async {
       // arrange
       when(mockGetMovieDetail.execute(tId))
-          .thenAnswer((_) async => Right(testMovieDetail));
+          .thenAnswer((_) async => Right(tMovieDetail));
       when(mockGetMovieRecommendations.execute(tId))
           .thenAnswer((_) async => Left(ServerFailure('Failed')));
       // act
@@ -167,38 +167,38 @@ void main() {
 
     test('should execute save watchlist when function called', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
+      when(mockSaveWatchlist.execute(tWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Success'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(tMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(tMovieDetail);
       // assert
-      verify(mockSaveWatchlist.execute(testWatchlist.toEntity()));
+      verify(mockSaveWatchlist.execute(tWatchlist.toEntity()));
     });
 
     test('should execute remove watchlist when function called', () async {
       // arrange
-      when(mockRemoveWatchlist.execute(testWatchlist.toEntity()))
+      when(mockRemoveWatchlist.execute(tWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Removed'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(tMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
-      await provider.removeFromWatchlist(testMovieDetail);
+      await provider.removeFromWatchlist(tMovieDetail);
       // assert
-      verify(mockRemoveWatchlist.execute(testWatchlist.toEntity()));
+      verify(mockRemoveWatchlist.execute(tWatchlist.toEntity()));
     });
 
     test('should update watchlist status when add watchlist success', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
+      when(mockSaveWatchlist.execute(tWatchlist.toEntity()))
           .thenAnswer((_) async => Right('Added to Watchlist'));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(tMovieDetail.id))
           .thenAnswer((_) async => true);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(tMovieDetail);
       // assert
-      verify(mockGetWatchlistStatus.execute(testMovieDetail.id));
+      verify(mockGetWatchlistStatus.execute(tMovieDetail.id));
       expect(provider.isAddedToWatchlist, true);
       expect(provider.watchlistMessage, 'Added to Watchlist');
       expect(listenerCallCount, 1);
@@ -206,12 +206,12 @@ void main() {
 
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
-      when(mockSaveWatchlist.execute(testWatchlist.toEntity()))
+      when(mockSaveWatchlist.execute(tWatchlist.toEntity()))
           .thenAnswer((_) async => Left(DatabaseFailure('Failed')));
-      when(mockGetWatchlistStatus.execute(testMovieDetail.id))
+      when(mockGetWatchlistStatus.execute(tMovieDetail.id))
           .thenAnswer((_) async => false);
       // act
-      await provider.addWatchlist(testMovieDetail);
+      await provider.addWatchlist(tMovieDetail);
       // assert
       expect(provider.watchlistMessage, 'Failed');
       expect(listenerCallCount, 1);

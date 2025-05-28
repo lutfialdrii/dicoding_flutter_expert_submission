@@ -25,9 +25,9 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
-final testWatchList = [testWatchlistMovie, testWatchlistTvSerie];
+final testWatchList = [tWatchlistMovie, testWatchlistTvSerie];
 
-final testWatchlistMovie = Watchlist(
+final tWatchlistMovie = Watchlist(
     id: 1,
     overview: 'overview',
     posterPath: 'posterPath',
@@ -41,7 +41,7 @@ final testWatchlistTvSerie = Watchlist(
     title: 'title',
     category: Category.tvSerie);
 
-final testMovieDetail = MovieDetail(
+final tMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
   genres: [],
@@ -115,7 +115,7 @@ final testTvSerieDetail = TvSerieDetail(
     voteAverage: 0,
     voteCount: 0);
 
-final testWatchlist = WatchlistModel(
+final tWatchlist = WatchlistModel(
     id: 1,
     title: 'title',
     posterPath: 'posterPath',
@@ -182,3 +182,5 @@ final tTvSerieModel = TvSerie(
   originCountry: [],
   originalLanguage: '',
 );
+
+final tMessage = "message";

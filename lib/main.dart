@@ -6,6 +6,7 @@ import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_b
 import 'package:ditonton/presentation/home/blocs/popular_tv_series/popular_tv_series_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
+import 'package:ditonton/presentation/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/about/about_page.dart';
 import 'package:ditonton/presentation/movie_detail/movie_detail_page.dart';
@@ -57,6 +58,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.locator<TopRatedTvSeriesBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => di.locator<MovieDetailBloc>(),
         ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieDetailNotifier>(),

@@ -20,10 +20,10 @@ void main() {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testWatchlist))
+      when(mockDatabaseHelper.insertWatchlist(tWatchlist))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.insertWatchlist(testWatchlist);
+      final result = await dataSource.insertWatchlist(tWatchlist);
       // assert
       expect(result, 'Added to Watchlist');
     });
@@ -31,10 +31,10 @@ void main() {
     test('should throw DatabaseException when insert to database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testWatchlist))
+      when(mockDatabaseHelper.insertWatchlist(tWatchlist))
           .thenThrow(Exception());
       // act
-      final call = dataSource.insertWatchlist(testWatchlist);
+      final call = dataSource.insertWatchlist(tWatchlist);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
@@ -44,10 +44,10 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testWatchlist))
+      when(mockDatabaseHelper.removeWatchlist(tWatchlist))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.removeWatchlist(testWatchlist);
+      final result = await dataSource.removeWatchlist(tWatchlist);
       // assert
       expect(result, 'Removed from Watchlist');
     });
@@ -55,10 +55,10 @@ void main() {
     test('should throw DatabaseException when remove from database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testWatchlist))
+      when(mockDatabaseHelper.removeWatchlist(tWatchlist))
           .thenThrow(Exception());
       // act
-      final call = dataSource.removeWatchlist(testWatchlist);
+      final call = dataSource.removeWatchlist(tWatchlist);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
@@ -74,7 +74,7 @@ void main() {
       // act
       final result = await dataSource.getMovieById(tId);
       // assert
-      expect(result, testWatchlist);
+      expect(result, tWatchlist);
     });
 
     test('should return null when data is not found', () async {
@@ -95,7 +95,7 @@ void main() {
       // act
       final result = await dataSource.getWatchlist();
       // assert
-      expect(result, [testWatchlist]);
+      expect(result, [tWatchlist]);
     });
   });
 }

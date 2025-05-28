@@ -1,3 +1,4 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/models/watchlist_model.dart';
@@ -18,7 +19,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   Future<String> insertWatchlist(WatchlistModel movie) async {
     try {
       await databaseHelper.insertWatchlist(movie);
-      return 'Added to Watchlist';
+      return watchlistAddSuccessMessage;
     } catch (e) {
       throw DatabaseException(e.toString());
     }
@@ -28,7 +29,7 @@ class WatchlistLocalDataSourceImpl implements WatchlistLocalDataSource {
   Future<String> removeWatchlist(WatchlistModel movie) async {
     try {
       await databaseHelper.removeWatchlist(movie);
-      return 'Removed from Watchlist';
+      return watchlistRemoveSuccessMessage;
     } catch (e) {
       throw DatabaseException(e.toString());
     }
