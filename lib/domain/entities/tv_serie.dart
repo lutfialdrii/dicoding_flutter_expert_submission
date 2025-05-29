@@ -33,7 +33,6 @@ class TvSerie extends Equatable {
     required this.voteAverage,
     required this.voteCount,
   });
-
   @override
   List<Object?> get props => [
         adult,

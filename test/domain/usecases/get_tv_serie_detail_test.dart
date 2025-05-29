@@ -20,10 +20,10 @@ void main() {
   test('should get Tv Serie detail from the repository', () async {
     // arrange
     when(_repository.getTvSerieDetail(tId))
-        .thenAnswer((_) async => Right(testTvSerieDetail));
+        .thenAnswer((_) async => Right(tTvSerieDetail));
     // act
     final result = await usecase.execute(tId);
     // assert
-    expect(result, Right(testTvSerieDetail));
+    expect(result, Right(tTvSerieDetail));
   });
 }

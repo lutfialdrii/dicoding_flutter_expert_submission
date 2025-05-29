@@ -2,6 +2,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/data/models/watchlist_model.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_serie.dart';
 import 'package:ditonton/domain/entities/tv_serie_detail.dart';
 import 'package:ditonton/domain/entities/watchlist.dart';
 
@@ -24,23 +25,23 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
-final testWatchList = [testWatchlistMovie, testWatchlistTvSerie];
+final testWatchList = [tWatchlistMovie, tWatchlistTvSerie];
 
-final testWatchlistMovie = Watchlist(
+final tWatchlistMovie = Watchlist(
     id: 1,
     overview: 'overview',
     posterPath: 'posterPath',
     title: 'title',
     category: Category.movie);
 
-final testWatchlistTvSerie = Watchlist(
+final tWatchlistTvSerie = Watchlist(
     id: 1,
     overview: 'overview',
     posterPath: 'posterPath',
     title: 'title',
     category: Category.tvSerie);
 
-final testMovieDetail = MovieDetail(
+final tMovieDetail = MovieDetail(
   adult: false,
   backdropPath: 'backdropPath',
   genres: [],
@@ -54,7 +55,7 @@ final testMovieDetail = MovieDetail(
   voteAverage: 1,
   voteCount: 1,
 );
-final testTvSerieDetail = TvSerieDetail(
+final tTvSerieDetail = TvSerieDetail(
     adult: false,
     backdropPath: "backdropPath",
     createdBy: [],
@@ -114,7 +115,7 @@ final testTvSerieDetail = TvSerieDetail(
     voteAverage: 0,
     voteCount: 0);
 
-final testWatchlist = WatchlistModel(
+final tWatchlist = WatchlistModel(
     id: 1,
     title: 'title',
     posterPath: 'posterPath',
@@ -128,3 +129,58 @@ final testMovieMap = {
   'title': 'title',
   'category': Category.movie.toString(),
 };
+
+final tTvSerie = TvSerie(
+  adult: false,
+  backdropPath: 'backdropPath',
+  genreIds: [1, 2, 3],
+  id: 1,
+  overview: 'overview',
+  popularity: 1,
+  posterPath: 'posterPath',
+  voteAverage: 1,
+  voteCount: 1,
+  originCountry: [],
+  originalLanguage: '',
+  originalName: '',
+  firstAirDate: null,
+  name: '',
+);
+
+final tTvSerieList = <TvSerie>[tTvSerie];
+
+final tMovieModel = Movie(
+  adult: false,
+  backdropPath: '/muth4OYamXf41G2evdrLEg8d3om.jpg',
+  genreIds: [14, 28],
+  id: 557,
+  originalTitle: 'Spider-Man',
+  overview:
+      'After being bitten by a genetically altered spider, nerdy high school student Peter Parker is endowed with amazing powers to become the Amazing superhero known as Spider-Man.',
+  popularity: 60.441,
+  posterPath: '/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
+  releaseDate: '2002-05-01',
+  title: 'Spider-Man',
+  video: false,
+  voteAverage: 7.2,
+  voteCount: 13507,
+);
+final tMovieList = <Movie>[tMovieModel];
+final tTvSerieModel = TvSerie(
+  adult: false,
+  backdropPath: '/anu.jpg',
+  genreIds: [0],
+  id: 0,
+  name: 'Anu',
+  overview: '',
+  popularity: 0,
+  posterPath: '',
+  firstAirDate: DateTime.now(),
+  originalName: 'Anu',
+  voteAverage: 0,
+  voteCount: 0,
+  originCountry: [],
+  originalLanguage: '',
+);
+
+final tMessage = "message";
