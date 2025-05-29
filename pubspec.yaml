@@ -24,8 +24,8 @@ dependencies:
   cached_network_image: ^3.4.1
   dartz: ^0.10.1
   equatable: ^2.0.5
-  firebase_core: ^3.13.1
-  firebase_crashlytics: ^4.3.6
+  firebase_core: ^2.28.0
+  firebase_crashlytics: ^3.5.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
