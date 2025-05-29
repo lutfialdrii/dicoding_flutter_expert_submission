@@ -1,9 +1,8 @@
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/watchlist/bloc/watchlist_bloc.dart';
 import 'package:ditonton/presentation/widgets/poster_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist';
@@ -16,9 +15,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistNotifier>(context, listen: false)
-            .fetchWatchlist());
+    Future.microtask(() => context.read<WatchlistBloc>().add(FetchWatchlist()));
   }
 
   @override
@@ -28,7 +25,7 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
   }
 
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
+    context.read<WatchlistBloc>().add(FetchWatchlist());
   }
 
   @override
@@ -38,31 +35,38 @@ class _WatchlistPageState extends State<WatchlistPage> with RouteAware {
         title: Text('Watchlist'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<WatchlistBloc, WatchlistState>(
+              builder: (context, state) {
+            if (state is WatchListLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (state is WatchListLoaded) {
+              if (state.data?.isEmpty ?? true) {
+                return Center(
+                  child: Text("Anda belum menambahkan watchlist!"),
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final watchlist = data.watchlist[index];
+                  final watchlist = state.data![index];
 
                   return PosterCard(watchlist);
                 },
-                itemCount: data.watchlist.length,
+                itemCount: state.data!.length,
+              );
+            } else if (state is WatchListError) {
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else {
               return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
+                child: Text("Terjadi Kesalahan :("),
               );
             }
-          },
-        ),
-      ),
+          })),
     );
   }
 

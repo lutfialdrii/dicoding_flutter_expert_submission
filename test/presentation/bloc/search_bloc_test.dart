@@ -27,7 +27,7 @@ void main() {
   test(
     "Initial state should be initial",
     () {
-    expect(searchBloc.state, SearchInitial());
+      expect(searchBloc.state, SearchInitial());
     },
   );
 
@@ -60,6 +60,7 @@ void main() {
       return searchBloc;
     },
     act: (bloc) => bloc.add(onQueryMovieChanged(tQuery)),
+    wait: Duration(milliseconds: 500),
     expect: () => [SearchLoading(), SearchMovieLoaded(tMovieList)],
     verify: (bloc) {
       verify(mockSearchMovies.execute(tQuery));
@@ -73,6 +74,7 @@ void main() {
       return searchBloc;
     },
     act: (bloc) => bloc.add(onQueryTvSerieChanged(tQuery)),
+    wait: Duration(milliseconds: 500),
     expect: () => [SearchLoading(), SearchTvSerieLoaded(tTvSerieList)],
     verify: (bloc) {
       verify(mockSearchTvSeries.execute(tQuery));

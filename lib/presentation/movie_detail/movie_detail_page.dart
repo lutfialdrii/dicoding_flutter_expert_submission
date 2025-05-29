@@ -71,29 +71,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
               .showSnackBar(SnackBar(content: Text(state.watchlistMessage)));
         }
       },
-    )
-
-        // Consumer<MovieDetailNotifier>(
-        //   builder: (context, provider, child) {
-        //     if (provider.movieState == RequestState.Loading) {
-        //       return Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     } else if (provider.movieState == RequestState.Loaded) {
-        //       final movie = provider.movie;
-        //       return SafeArea(
-        //         child: DetailContent(
-        //           movie,
-        //           provider.movieRecommendations,
-        //           provider.isAddedToWatchlist,
-        //         ),
-        //       );
-        //     } else {
-        //       return Text(provider.message);
-        //     }
-        //   },
-        // ),
-        );
+    ));
   }
 }
 
@@ -155,29 +133,6 @@ class DetailContent extends StatelessWidget {
                                       .read<MovieDetailBloc>()
                                       .add(AddMovieToWatchlist(movie));
                                 }
-
-                                // final message =
-                                //     Provider.of<MovieDetailNotifier>(context,
-                                //             listen: false)
-                                //         .watchlistMessage;
-
-                                // if (message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistAddSuccessMessage ||
-                                //     message ==
-                                //         MovieDetailNotifier
-                                //             .watchlistRemoveSuccessMessage) {
-                                //   ScaffoldMessenger.of(context).showSnackBar(
-                                //       SnackBar(content: Text(message)));
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (context) {
-                                //         return AlertDialog(
-                                //           content: Text(message),
-                                //         );
-                                //       });
-                                // }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,

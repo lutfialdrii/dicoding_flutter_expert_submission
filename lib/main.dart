@@ -7,23 +7,20 @@ import 'package:ditonton/presentation/home/blocs/popular_tv_series/popular_tv_se
 import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/movie_detail/bloc/movie_detail_bloc.dart';
-import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/about/about_page.dart';
 import 'package:ditonton/presentation/movie_detail/movie_detail_page.dart';
 import 'package:ditonton/presentation/home/home_page.dart';
-import 'package:ditonton/presentation/popular_movies/popular_movies_page.dart';
-import 'package:ditonton/presentation/popular_tv_series/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/home/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/home/pages/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/search/search_page.dart';
-import 'package:ditonton/presentation/top_rated_movies/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/top_rated_tv_series/top_rated_tv_series_page.dart';
+import 'package:ditonton/presentation/home/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/home/pages/top_rated_tv_series_page.dart';
+import 'package:ditonton/presentation/tv_serie_detail/bloc/tv_serie_detail_bloc.dart';
 import 'package:ditonton/presentation/tv_serie_detail/tv_serie_detail_page.dart';
+import 'package:ditonton/presentation/watchlist/bloc/watchlist_bloc.dart';
 import 'package:ditonton/presentation/watchlist/watchlist_page.dart';
-import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_serie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,24 +58,14 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => di.locator<MovieDetailBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSerieDetailNotifier>(),
+        BlocProvider(
+          create: (context) => di.locator<TvSerieDetailBloc>(),
         ),
-        BlocProvider(create: (context) => di.locator<SearchBloc>()),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
+        BlocProvider(
+          create: (context) => di.locator<SearchBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistNotifier>(),
+        BlocProvider(
+          create: (context) => di.locator<WatchlistBloc>(),
         ),
       ],
       child: MaterialApp(

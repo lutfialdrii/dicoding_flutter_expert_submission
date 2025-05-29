@@ -32,12 +32,8 @@ import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movi
 import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
-import 'package:ditonton/presentation/provider/popular_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_movies_notifier.dart';
-import 'package:ditonton/presentation/provider/top_rated_tv_series_notifier.dart';
-import 'package:ditonton/presentation/provider/tv_serie_detail_notifier.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/tv_serie_detail/bloc/tv_serie_detail_bloc.dart';
+import 'package:ditonton/presentation/watchlist/bloc/watchlist_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
@@ -79,6 +75,15 @@ void init() {
     ),
   );
   locator.registerFactory(
+    () => TvSerieDetailBloc(
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+      locator(),
+    ),
+  );
+  locator.registerFactory(
     () => MovieDetailBloc(
       locator(),
       locator(),
@@ -87,41 +92,9 @@ void init() {
       locator(),
     ),
   );
-  // provider
-
   locator.registerFactory(
-    () => PopularMoviesNotifier(
+    () => WatchlistBloc(
       locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedMoviesNotifier(
-      getTopRatedMovies: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => WatchlistNotifier(
-      getWatchlist: locator(),
-    ),
-  );
-
-  locator.registerFactory(
-    () => PopularTvSeriesNotifier(
-      locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TopRatedTvSeriesNotifier(
-      getTopRatedTvSeries: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSerieDetailNotifier(
-      getTvSerieDetail: locator(),
-      getTvSerieRecommendations: locator(),
-      saveWatchlist: locator(),
-      getWatchListStatus: locator(),
-      removeWatchlist: locator(),
     ),
   );
 

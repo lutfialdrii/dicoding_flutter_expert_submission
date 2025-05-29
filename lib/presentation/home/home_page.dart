@@ -10,11 +10,11 @@ import 'package:ditonton/presentation/home/blocs/popular_tv_series/popular_tv_se
 import 'package:ditonton/presentation/home/blocs/top_rated_movies/top_rated_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/top_rated_tv_series/top_rated_tv_series_bloc.dart';
 import 'package:ditonton/presentation/movie_detail/movie_detail_page.dart';
-import 'package:ditonton/presentation/popular_movies/popular_movies_page.dart';
-import 'package:ditonton/presentation/popular_tv_series/popular_tv_series_page.dart';
+import 'package:ditonton/presentation/home/pages/popular_movies_page.dart';
+import 'package:ditonton/presentation/home/pages/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/search/search_page.dart';
-import 'package:ditonton/presentation/top_rated_movies/top_rated_movies_page.dart';
-import 'package:ditonton/presentation/top_rated_tv_series/top_rated_tv_series_page.dart';
+import 'package:ditonton/presentation/home/pages/top_rated_movies_page.dart';
+import 'package:ditonton/presentation/home/pages/top_rated_tv_series_page.dart';
 import 'package:ditonton/presentation/tv_serie_detail/tv_serie_detail_page.dart';
 import 'package:ditonton/presentation/watchlist/watchlist_page.dart';
 import 'package:flutter/material.dart';
