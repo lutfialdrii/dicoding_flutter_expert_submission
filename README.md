@@ -31,3 +31,4 @@ open index.html
 
 > **Note:** This way you can add it to CircleCI artifacts and Coveralls as well.
 
+FLUTTER VERSION : 3.24.4

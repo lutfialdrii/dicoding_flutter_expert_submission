@@ -1,6 +1,8 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:flutter/material.dart';
 
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
 class AboutPage extends StatelessWidget {
   static const ROUTE_NAME = '/about';
 
@@ -31,6 +33,17 @@ class AboutPage extends StatelessWidget {
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.justify,
                   ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  FirebaseCrashlytics.instance
+                      .log("About page error button pressed");
+                  throw Exception("Test crash from About page");
+                },
+                child: Text("Trigger Test Error"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
                 ),
               ),
             ],
