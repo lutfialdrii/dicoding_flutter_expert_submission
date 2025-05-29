@@ -25,7 +25,7 @@ final testMovie = Movie(
 
 final testMovieList = [testMovie];
 
-final testWatchList = [tWatchlistMovie, testWatchlistTvSerie];
+final testWatchList = [tWatchlistMovie, tWatchlistTvSerie];
 
 final tWatchlistMovie = Watchlist(
     id: 1,
@@ -34,7 +34,7 @@ final tWatchlistMovie = Watchlist(
     title: 'title',
     category: Category.movie);
 
-final testWatchlistTvSerie = Watchlist(
+final tWatchlistTvSerie = Watchlist(
     id: 1,
     overview: 'overview',
     posterPath: 'posterPath',
@@ -55,7 +55,7 @@ final tMovieDetail = MovieDetail(
   voteAverage: 1,
   voteCount: 1,
 );
-final testTvSerieDetail = TvSerieDetail(
+final tTvSerieDetail = TvSerieDetail(
     adult: false,
     backdropPath: "backdropPath",
     createdBy: [],

@@ -95,7 +95,7 @@ void main() {
         },
       );
 
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit [movie state loading, movie state loaded, recommendationState loading, recommendationState error] when get detail movie success but get recommendation unsuccess",
         build: () {
           when(mockGetMovieDetail.execute(tMovieId)).thenAnswer(
@@ -128,7 +128,7 @@ void main() {
           verify(mockGetMovieRecommendations.execute(tMovieId));
         },
       );
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit [movie state loading, movie state error] when get detail movie unsuccessful",
         build: () {
           when(mockGetMovieDetail.execute(tMovieId)).thenAnswer(
@@ -157,7 +157,7 @@ void main() {
   group(
     "Watchlist",
     () {
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit watchlist message when success save movie",
         build: () {
           when(mockSaveWatchlist.execute(tWatchlistMovie))
@@ -173,7 +173,7 @@ void main() {
           verify(mockSaveWatchlist.execute(tWatchlistMovie));
         },
       );
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit watchlist message when failed save movie",
         build: () {
           when(mockSaveWatchlist.execute(tWatchlistMovie))
@@ -189,7 +189,7 @@ void main() {
         },
       );
 
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit watchlist message when success remove movie",
         build: () {
           when(mockRemoveWatchlist.execute(tWatchlistMovie))
@@ -205,7 +205,7 @@ void main() {
           verify(mockRemoveWatchlist.execute(tWatchlistMovie));
         },
       );
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit watchlist message when failed remove movie",
         build: () {
           when(mockRemoveWatchlist.execute(tWatchlistMovie))
@@ -220,7 +220,7 @@ void main() {
           verify(mockRemoveWatchlist.execute(tWatchlistMovie));
         },
       );
-      blocTest(
+      blocTest<MovieDetailBloc, MovieDetailState>(
         "Should emit true when get movie watchlisted",
         build: () {
           when(mockGetWatchListStatus.execute(tMovieId))
