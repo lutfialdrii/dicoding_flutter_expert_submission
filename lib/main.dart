@@ -1,5 +1,8 @@
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/http_ssl_pinning.dart';
 import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/firebase_options.dart';
+
 import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_bloc.dart';
@@ -20,14 +23,26 @@ import 'package:ditonton/presentation/tv_serie_detail/bloc/tv_serie_detail_bloc.
 import 'package:ditonton/presentation/tv_serie_detail/tv_serie_detail_page.dart';
 import 'package:ditonton/presentation/watchlist/bloc/watchlist_bloc.dart';
 import 'package:ditonton/presentation/watchlist/watchlist_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+
 import 'package:ditonton/injection.dart' as di;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  await HttpSSLPinning.init();
+
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
   di.init();
   runApp(MyApp());
 }
