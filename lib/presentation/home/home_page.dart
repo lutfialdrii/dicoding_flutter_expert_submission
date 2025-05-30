@@ -71,7 +71,6 @@ class _HomePageState extends State<HomePage> {
                 context
                     .read<CategoryBloc>()
                     .add(ChangeCategory(Category.movie));
-                Future.microtask(() => fetchMovies());
               },
             ),
             ListTile(
@@ -82,7 +81,6 @@ class _HomePageState extends State<HomePage> {
                 context
                     .read<CategoryBloc>()
                     .add(ChangeCategory(Category.tvSerie));
-                Future.microtask(() => fetchTVSeries());
               },
             ),
             ListTile(
@@ -119,11 +117,20 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: BlocBuilder<CategoryBloc, CategoryState>(
-            builder: (context, state) => SingleChildScrollView(
-                child: state.category == Category.movie
-                    ? _buildMoviesContent(context)
-                    : _buildTvSeriesContent(context))),
+        child: BlocConsumer<CategoryBloc, CategoryState>(
+          builder: (context, state) => SingleChildScrollView(
+              child: state.category == Category.movie
+                  ? _buildMoviesContent(context)
+                  : _buildTvSeriesContent(context)),
+          listener: (BuildContext context, CategoryState state) {
+            state.category == Category.movie
+                ? Future.microtask(() => fetchMovies())
+                : Future.microtask(() => fetchTVSeries());
+          },
+          listenWhen: (previous, current) {
+            return previous.category != current.category;
+          },
+        ),
       ),
     );
   }

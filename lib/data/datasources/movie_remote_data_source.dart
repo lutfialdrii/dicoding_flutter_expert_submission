@@ -34,8 +34,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -52,8 +50,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -70,8 +66,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -88,8 +82,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -106,8 +98,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -124,8 +114,6 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 }

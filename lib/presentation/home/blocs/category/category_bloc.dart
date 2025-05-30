@@ -8,7 +8,7 @@ part 'category_state.dart';
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc() : super(CategoryState(Category.movie)) {
     on<ChangeCategory>(
-      (event, emit) => emit(CategoryState(Category.tvSerie)),
+      (event, emit) => emit(CategoryState(event.category)),
     );
   }
 }
