@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:ditonton/common/constants.dart';
-import 'package:ditonton/common/http_ssl_pinning.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/firebase_options.dart';
+import 'package:ditonton/injection.dart';
+import 'package:ditonton/presentation/home/blocs/category/category_bloc.dart';
 
 import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
@@ -41,8 +42,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await HttpSSLPinning.init();
-
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
@@ -52,6 +51,7 @@ Future<void> main() async {
   };
 
   di.init();
+  await locator.allReady();
   runApp(MyApp());
 }
 
@@ -89,6 +89,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => di.locator<WatchlistBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => di.locator<CategoryBloc>(),
         ),
       ],
       child: MaterialApp(

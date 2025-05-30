@@ -16,11 +16,11 @@ void main() {
   const BASE_URL = 'https://api.themoviedb.org/3';
 
   late MovieRemoteDataSourceImpl dataSource;
-  late MockHttpClient mockHttpClient;
+  late MockSSLPinningClient mockSSLPinningClient;
 
   setUp(() {
-    mockHttpClient = MockHttpClient();
-    dataSource = MovieRemoteDataSourceImpl(client: mockHttpClient);
+    mockSSLPinningClient = MockSSLPinningClient();
+    dataSource = MovieRemoteDataSourceImpl(client: mockSSLPinningClient);
   });
 
   group('get Now Playing Movies', () {
@@ -31,27 +31,25 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/now_playing.json'), 200));
-      // act
-      final result = await dataSource.getNowPlayingMovies();
+
       // assert
-      expect(result, equals(tMovieList));
+      expect(await dataSource.getNowPlayingMovies(), equals(tMovieList));
     });
 
     test(
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/movie/now_playing?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
-      // act
-      final call = dataSource.getNowPlayingMovies();
+
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(() async => await dataSource.getNowPlayingMovies(), throwsA(isA<ServerException>()));
     });
   });
 
@@ -63,25 +61,24 @@ void main() {
     test('should return list of movies when response is success (200)',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/popular.json'), 200));
-      // act
-      final result = await dataSource.getPopularMovies();
+
       // assert
-      expect(result, tMovieList);
+      expect(await dataSource.getPopularMovies(), tMovieList);
     });
 
     test(
         'should throw a ServerException when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/popular?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
-      // act
-      final call = dataSource.getPopularMovies();
+
+
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(() async => await dataSource.getPopularMovies(), throwsA(isA<ServerException>()));
     });
   });
 
@@ -92,24 +89,25 @@ void main() {
 
     test('should return list of movies when response code is 200 ', () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/top_rated.json'), 200));
-      // act
-      final result = await dataSource.getTopRatedMovies();
+
       // assert
-      expect(result, tMovieList);
+      expect(await dataSource.getTopRatedMovies(), tMovieList);
     });
 
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/top_rated?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
-      // act
-      final call = dataSource.getTopRatedMovies();
+
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(
+        () async => await dataSource.getTopRatedMovies(),
+        throwsA(isA<ServerException>()),
+      );
     });
   });
 
@@ -120,24 +118,23 @@ void main() {
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
           .thenAnswer((_) async =>
               http.Response(readJson('dummy_data/movie_detail.json'), 200));
-      // act
-      final result = await dataSource.getMovieDetail(tId);
       // assert
-      expect(result, equals(tMovieDetail));
+      expect(await dataSource.getMovieDetail(tId), equals(tMovieDetail));
     });
 
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
+      when(mockSSLPinningClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
       // act
-      final call = dataSource.getMovieDetail(tId);
+
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(() async => await dataSource.getMovieDetail(tId),
+          throwsA(isA<ServerException>()));
     });
   });
 
@@ -150,26 +147,24 @@ void main() {
     test('should return list of Movie Model when the response code is 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/movie_recommendations.json'), 200));
-      // act
-      final result = await dataSource.getMovieRecommendations(tId);
+
       // assert
-      expect(result, equals(tMovieList));
+      expect(await dataSource.getMovieRecommendations(tId), equals(tMovieList));
     });
 
     test('should throw Server Exception when the response code is 404 or other',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
-      // act
-      final call = dataSource.getMovieRecommendations(tId);
+      
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(() async => await dataSource.getMovieRecommendations(tId), throwsA(isA<ServerException>()));
     });
   });
 
@@ -181,26 +176,24 @@ void main() {
 
     test('should return list of movies when response code is 200', () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
               readJson('dummy_data/search_spiderman_movie.json'), 200));
-      // act
-      final result = await dataSource.searchMovies(tQuery);
+
       // assert
-      expect(result, tSearchResult);
+      expect(await dataSource.searchMovies(tQuery), tSearchResult);
     });
 
     test('should throw ServerException when response code is other than 200',
         () async {
       // arrange
-      when(mockHttpClient
+      when(mockSSLPinningClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response('Not Found', 404));
-      // act
-      final call = dataSource.searchMovies(tQuery);
+
       // assert
-      expect(() => call, throwsA(isA<ServerException>()));
+      expect(() async => await dataSource.searchMovies(tQuery), throwsA(isA<ServerException>()));
     });
   });
 }
