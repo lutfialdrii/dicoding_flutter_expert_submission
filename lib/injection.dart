@@ -1,3 +1,4 @@
+import 'package:ditonton/common/ssl_pinning_client.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/datasources/watchlist_local_data_source.dart';
 import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
@@ -24,6 +25,7 @@ import 'package:ditonton/domain/usecases/remove_watchlist.dart';
 import 'package:ditonton/domain/usecases/save_watchlist.dart';
 import 'package:ditonton/domain/usecases/search_movies.dart';
 import 'package:ditonton/domain/usecases/search_tvseries.dart';
+import 'package:ditonton/presentation/home/blocs/category/category_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_bloc.dart';
@@ -34,7 +36,6 @@ import 'package:ditonton/presentation/movie_detail/bloc/movie_detail_bloc.dart';
 import 'package:ditonton/presentation/search/bloc/search_bloc.dart';
 import 'package:ditonton/presentation/tv_serie_detail/bloc/tv_serie_detail_bloc.dart';
 import 'package:ditonton/presentation/watchlist/bloc/watchlist_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
 final locator = GetIt.instance;
@@ -97,6 +98,9 @@ void init() {
       locator(),
     ),
   );
+  locator.registerFactory(
+    () => CategoryBloc(),
+  );
 
   // === use case ===
 
@@ -153,5 +157,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton<SSLPinningClient>(() => SSLPinningClient());
 }

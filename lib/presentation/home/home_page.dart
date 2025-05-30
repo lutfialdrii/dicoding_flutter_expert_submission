@@ -3,6 +3,7 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/tv_serie.dart';
 import 'package:ditonton/presentation/about/about_page.dart';
+import 'package:ditonton/presentation/home/blocs/category/category_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/now_playing_movies/now_playing_movies_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/onair_tv_series/onair_tv_series_bloc.dart';
 import 'package:ditonton/presentation/home/blocs/popular_movies/popular_movies_bloc.dart';
@@ -26,8 +27,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Category category = Category.movie;
-
   @override
   void initState() {
     super.initState();
@@ -69,12 +68,10 @@ class _HomePageState extends State<HomePage> {
               title: Text('Movies'),
               onTap: () {
                 Navigator.pop(context);
-
-                if (category != Category.movie) {
-                  Future.microtask(() => fetchMovies());
-                }
-                category = Category.movie;
-                setState(() {});
+                context
+                    .read<CategoryBloc>()
+                    .add(ChangeCategory(Category.movie));
+                Future.microtask(() => fetchMovies());
               },
             ),
             ListTile(
@@ -82,12 +79,10 @@ class _HomePageState extends State<HomePage> {
               title: Text('TV Series'),
               onTap: () {
                 Navigator.pop(context);
-
-                if (category != Category.tvSerie) {
-                  Future.microtask(() => fetchTVSeries());
-                }
-                category = Category.tvSerie;
-                setState(() {});
+                context
+                    .read<CategoryBloc>()
+                    .add(ChangeCategory(Category.tvSerie));
+                Future.microtask(() => fetchTVSeries());
               },
             ),
             ListTile(
@@ -108,12 +103,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       appBar: AppBar(
-        title: Text(category == Category.movie ? "Movies" : "TV Series"),
+        title: BlocBuilder<CategoryBloc, CategoryState>(
+          builder: (context, state) =>
+              Text(state.category == Category.movie ? "Movies" : "TV Series"),
+        ),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, SearchPage.ROUTE_NAME,
-                  arguments: category);
+                  arguments: context.read<CategoryBloc>().state.category);
             },
             icon: Icon(Icons.search),
           )
@@ -121,10 +119,11 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-            child: category == Category.movie
-                ? _buildMoviesContent(context)
-                : _buildTvSeriesContent(context)),
+        child: BlocBuilder<CategoryBloc, CategoryState>(
+            builder: (context, state) => SingleChildScrollView(
+                child: state.category == Category.movie
+                    ? _buildMoviesContent(context)
+                    : _buildTvSeriesContent(context))),
       ),
     );
   }
