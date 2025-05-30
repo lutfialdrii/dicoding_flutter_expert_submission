@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/exception.dart';
+import 'package:ditonton/common/ssl_pinning_client.dart';
 import 'package:ditonton/data/models/tv_serie_detail_model.dart';
 import 'package:ditonton/data/models/tv_serie_model.dart';
 import 'package:ditonton/data/models/tv_serie_response.dart';
-import 'package:http/http.dart' as http;
 
 abstract class TvSerieRemoteDataSource {
   Future<List<TvSerieModel>> getOnairTvSeries();
@@ -17,7 +16,7 @@ abstract class TvSerieRemoteDataSource {
 }
 
 class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
-  final http.Client client;
+  final SSLPinningClient client;
 
   TvSerieRemoteDataSourceImpl({
     required this.client,
@@ -36,8 +35,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -55,8 +52,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -74,8 +69,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -92,8 +85,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -110,8 +101,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 
@@ -129,8 +118,6 @@ class TvSerieRemoteDataSourceImpl implements TvSerieRemoteDataSource {
       }
     } catch (e) {
       rethrow;
-    } finally {
-      client.close();
     }
   }
 }
